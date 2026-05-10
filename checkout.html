@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Secure checkout for Fume Theory luxury perfumes and custom scent creations.">
+	<title>Checkout | Fume Theory</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="./assets/images/product.png" type="image/x-icon">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./assets/fonts/fontawesome/css/all.css">
+	<link rel="stylesheet" href="./assets/css/style.css">
+	<link rel="stylesheet" href="./assets/css/responsive.css">
+</head>
+<body class="ft-luxury-page ft-checkout-page">
+	<header class="ft-site-header">
+		<div class="container">
+			<div class="ft-header-inner">
+				<a href="index.html" class="ft-logo">Fume Theory</a>
+				<nav class="ft-nav header__dynamic-page-wrapper" aria-label="Main navigation">
+					<a href="index.html">Home</a>
+					<a href="index.html#collections">Collections</a>
+					<a href="index.html#mixology-lab">Mix Your Own</a>
+				</nav>
+				<div class="ft-header-actions">
+					<button class="ft-icon-btn" data-open-cart type="button" aria-label="Open cart"><i class="fas fa-shopping-bag"></i><span class="count-number">0</span></button>
+					<button class="nav-toggle-btn" type="button" aria-label="Open menu"><span></span></button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="ft-checkout-hero">
+			<div class="container">
+				<span class="ft-kicker">Secure order confirmation</span>
+				<h1>Premium Checkout</h1>
+				<p>Review your perfume details, send a minimum 200 TK advance payment, then confirm your order with a transaction ID.</p>
+			</div>
+		</section>
+
+		<section class="ft-section">
+			<div class="container">
+				<form id="checkoutForm" class="ft-checkout-grid">
+					<div class="ft-checkout-card">
+						<h2>Delivery Information</h2>
+						<div class="row g-3">
+							<div class="col-md-6"><label for="customerName">Full Name *</label><input id="customerName" name="name" type="text" class="form-control" required></div>
+							<div class="col-md-6"><label for="customerPhone">Phone *</label><input id="customerPhone" name="phone" type="tel" class="form-control" required></div>
+							<div class="col-12"><label for="customerAddress">Full Address *</label><textarea id="customerAddress" name="address" rows="4" class="form-control" required></textarea></div>
+							<div class="col-md-6"><label class="ft-radio-card"><input type="radio" name="area" value="80" checked> Inside Dhaka <strong>80 TK</strong></label></div>
+							<div class="col-md-6"><label class="ft-radio-card"><input type="radio" name="area" value="150"> Outside Dhaka <strong>150 TK</strong></label></div>
+						</div>
+
+						<div class="ft-payment-block">
+							<h2>Advance Payment</h2>
+							<p>You must send at least <strong>200 TK</strong> before confirming the order.</p>
+							<div class="ft-payment-methods">
+								<label class="ft-radio-card"><input type="radio" name="payment_type" value="bKash" checked> <span><strong>bKash</strong><small>Send Money to 01XXXXXXXXX. Reference: Fume Theory order.</small></span></label>
+								<label class="ft-radio-card"><input type="radio" name="payment_type" value="Nagad"> <span><strong>Nagad</strong><small>Send Money to 01XXXXXXXXX. Reference: Fume Theory order.</small></span></label>
+							</div>
+							<div id="paymentInstruction" class="ft-payment-instruction">bKash selected: send minimum 200 TK to 01XXXXXXXXX, then enter Transaction ID.</div>
+							<label for="advanceAmount">Advance Amount *</label>
+							<input id="advanceAmount" name="advance_amount" type="number" min="200" value="200" class="form-control" required>
+							<label for="transactionId">Transaction ID *</label>
+							<input id="transactionId" name="transaction_id" type="text" class="form-control" placeholder="Enter bKash/Nagad Transaction ID" required>
+							<small class="ft-transaction-help">Confirm Order unlocks when Transaction ID is not empty and advance payment is at least 200 TK.</small>
+						</div>
+					</div>
+
+					<aside class="ft-checkout-card ft-order-card">
+						<h2>Order Summary</h2>
+						<div id="checkoutItems" class="ft-checkout-items"></div>
+						<div class="ft-total-row"><span>Sub Total</span><strong id="subTotal">TK 0</strong></div>
+						<div class="ft-total-row"><span>Delivery</span><strong id="deliveryCharge">TK 80</strong></div>
+						<div class="ft-total-row ft-grand-total"><span>Final Amount</span><strong id="grandTotal">TK 80</strong></div>
+						<button type="submit" class="ft-primary-btn ft-full-btn" id="confirmOrderBtn" disabled>Confirm Order <i class="fas fa-lock"></i></button>
+						<div id="orderSuccess" class="ft-order-success" hidden></div>
+					</aside>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<div class="ft-drawer-overlay" data-close-drawers></div>
+	<aside class="ft-cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+		<div class="ft-drawer-head"><h2>Your Cart</h2><button type="button" data-close-drawers aria-label="Close cart"><i class="fas fa-times"></i></button></div>
+		<div class="cart-items-outer"></div>
+		<div class="shopping-cart-footer">
+			<div class="shopping-cart-total"><h4>Total <span id="cartTotal">TK 0</span></h4></div>
+			<div class="shopping-cart-button"><a href="checkout.html" class="checkout-link">Checkout</a></div>
+		</div>
+	</aside>
+	<div id="toastHost" class="ft-toast-host" aria-live="polite"></div>
+
+	<footer class="ft-footer">
+		<div class="container">
+			<a href="index.html" class="ft-logo">Fume Theory</a>
+			<p class="ft-footer-small">(c) 2026 Fume Theory. All rights reserved.</p>
+		</div>
+	</footer>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+	<script src="./assets/js/main.js"></script>
+</body>
+</html>
+
+
+
+
